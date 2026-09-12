@@ -1,84 +1,100 @@
-class usuario{
-    #idUsuario;
-    #nombre;
-    #nombreUsuario;
-    #contrasena;
-    #nivel;
-    #racha;
-    #puntos;
-    #amigos
+import mongoose from "mongoose";
 
-    constructor(){}
+const usuarioSchema = new mongoose.Schema(
+    {
+        nombre:{
+            type: String,
+            required: [true, 'El nombre es requerido'],
+            maxLength:[25, 'El nombre no puede sobrepasar de 25 caracteres']
+        },
+        nombreUsuario:{
+            type: String,
+            required: [true, 'Nombre de usuario es requerido'],
+            maxLength:[25, 'El nombre de usuario no puede sobrepasar de 25 caracteres']
+        },
+        contrasena:{
+            type: String,
+            required: [true, 'Contraseña es requerida'],
+            maxLength: [100, 'Los contraseña no puede sobrepasar de 100 caracteres'],
+            minLength: [8, 'Los contraseña no puede ser menor de 8 caracteres']
+        },
+        nivel:{
+            type: Number,
+            default: 1
+        },
+        racha:{
+            type: Number,
+            defaul: 0
+        },
+        puntos:{
+            type: Number,
+            defaul: 0
+        },
+        amigos:[
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Usuario",
+            }
+        ]    
+    }
+)
 
-    constructor(nombre, nombreUsuario, contrasena){
-        this.#amigos = nombre;
-        this.#nombreUsuario = nombreUsuario;
-        this.#contrasena = contrasena;
-        this.#nivel = 1;
-        this.#racha = 0;
-        this.#puntos = 0;
-        this.#amigos = []
-    }
-
-    getIdUsuario(){
-        return this.#idUsuario;
-    }
-
-    setNombre(nombre){
-        this.#nombre = nombre;
-    }
-
-    getNombre(){
-        return this.#nombre;
-    }
-
-    setNombreUsuario(nombreUsuario){
-        this.#nombreUsuario = nombreUsuario;
-    }
-
-    getNombreUsuario(){
-        return this.#nombreUsuario;
-    }
-
-    setContrasena(contrasena){
-        this.#contrasena = contrasena;
-    }
-
-    getContrasena(){
-        return this.#contrasena;
-    }
-
-    setNivel(nivel){
-        this.#nivel = nivel;
-    }
-
-    getNivel(){
-        return this.#nivel;
-    }
-
-    setRacha(racha){
-        this.#racha = racha;
-    }
-
-    getRacha(){
-        return this.#racha;
-    }
-
-    setPuntos(puntos){
-        this.#puntos = puntos;
-    }
-    
-    getPuntos(){
-        return this.#puntos;
-    }
-
-    setAmigos(amigos){
-        this.#amigos.push(amigos);
-    }
-
-    getAmigos(){
-        return this.#amigos;
-    }
+usuarioSchema.methods.getIdUsuario =function(){
+    return this._id.toString();
 }
 
-module.exports = usuario;
+usuarioSchema.methods.getNombre = function() {
+    return this.nombre;
+}
+
+usuarioSchema.methods.setNombre = function(nombre){
+    this.nombre = nombre;
+}
+
+usuarioSchema.methods.getNombreUsuario = function() {
+    return this.nombreUsuario;
+};
+
+usuarioSchema.methods.setNombreUsuario = function(nombreUsuario) {
+    this.nombreUsuario = nombreUsuario;
+};
+
+usuarioSchema.methods.getNivel = function() {
+    return this.nivel;
+};
+
+usuarioSchema.methods.setNivel = function(nivel) {
+    this.nivel = nivel;
+};
+
+usuarioSchema.methods.getRacha = function() {
+    return this.racha;
+};
+
+usuarioSchema.methods.setRacha = function(racha) {
+    this.racha = racha;
+};
+
+usuarioSchema.methods.getPuntos = function() {
+    return this.puntos;
+};
+
+usuarioSchema.methods.setPuntos = function(puntos) {
+    this.puntos = puntos;
+};
+
+usuarioSchema.methods.agregarPuntos = function(cantidad){
+    this.puntos += cantidad
+}
+
+usuarioSchema.methods.agregarAmigo = function(idAmigo) {
+    this.amigos.push(idAmigo);
+};
+
+usuarioSchema.methods.getAmigos = function() {
+    return this.amigos;
+};
+
+const usuario = mongoose.model("Usuario", usuarioSchema)
+
+export default usuario;
