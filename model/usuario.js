@@ -40,7 +40,7 @@ const usuarioSchema = new mongoose.Schema(
 )
 
 usuarioSchema.methods.getIdUsuario =function(){
-    return this._id.toString();
+    return this._id;
 }
 
 usuarioSchema.methods.getNombre = function() {
