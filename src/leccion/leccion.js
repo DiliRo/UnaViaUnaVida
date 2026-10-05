@@ -22,6 +22,11 @@ const leccionSchema = new mongoose.Schema(
             type: Number,
             default: 0,
             required: [true, 'Los puntos maximos de lección son necesario'],
+        },
+        intento:{
+            type: Number,
+            default: 5,
+            required: [true, 'Los intentos maximos de la lección son necesarios']
         }
     }
 )
@@ -64,6 +69,14 @@ leccionSchema.methods.setPuntosMaximos = function(puntos){
 
 leccionSchema.methods.CacularPosiblePuntosMaximos = function(){
     return this.preguntas.length()
+}
+
+leccionSchema.methods.getIntentos = function(){
+    return this.intento
+}
+
+leccionSchema.methods.intentoMenos = function(){
+    this.intento -= 1
 }
 
 
