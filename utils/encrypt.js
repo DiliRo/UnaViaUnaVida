@@ -10,9 +10,9 @@ export const encrypt = async(password)=> {
     }
 }
 
-export const checkPassword = async(hash, password)=>{
+export const checkPassword = async(passwordHash, password)=>{
     try{
-        return await verify(hash, password)
+        return await verify(passwordHash, password)
     }catch(err){
         console.error(err)
     }
