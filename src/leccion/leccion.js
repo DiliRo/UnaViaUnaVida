@@ -7,10 +7,10 @@ const leccionSchema = new mongoose.Schema(
             required: [true, 'El titulo es requerido'],
             maxLength:[50, 'El titulo no puede sobrepasar de 50 caracteres']
         },
-        decripcion:{
+        descripcion: {
             type: String,
-            required: [true, 'La descripción es requerido'],
-            maxLength:[150, 'La descripción no puede sobrepasar de 150 caracteres']
+            required: [true, 'La descripción es requerida'],
+            maxLength: [150, 'La descripción no puede sobrepasar los 150 caracteres']
         },
         preguntas:[
             {
@@ -22,7 +22,16 @@ const leccionSchema = new mongoose.Schema(
             type: Number,
             default: 0,
             required: [true, 'Los puntos maximos de lección son necesario'],
-        }
+        },
+        intentosMaximos: {
+            type: Number,
+            default: 5,
+            min: [1, 'Debe permitirse al menos un intento'],
+            validate: {
+                validator: Number.isInteger,
+                message: 'Los intentos máximos deben ser un número entero'
+            }
+        }       
     }
 )
 
@@ -38,12 +47,12 @@ leccionSchema.methods.setTitulo = function(titulo){
     this.titulo = titulo;
 }
 
-leccionSchema.methods.getDescripcion = function(){
-    return this.decripcion;
+leccionSchema.methods.getDescripcion = function () {
+    return this.descripcion
 }
 
-leccionSchema.methods.setDescripcion = function(descripción){
-    this.decripcion = descripción
+leccionSchema.methods.setDescripcion = function (descripcion) {
+    this.descripcion = descripcion
 }
 
 leccionSchema.methods.getPreguntas = function(){
@@ -62,13 +71,14 @@ leccionSchema.methods.setPuntosMaximos = function(puntos){
     this.puntosMaximos = puntos;
 }
 
-leccionSchema.methods.CacularPosiblePuntosMaximos = function(){
-    return this.preguntas.length()
+leccionSchema.methods.calcularPosiblesPuntosMaximos = function () {
+    return this.preguntas.length
 }
 
+leccionSchema.methods.getIntentosMaximos = function () {
+    return this.intentosMaximos
+}
 
+const leccion = mongoose.model('Leccion', leccionSchema)
 
-
-const leccion = mongoose.model("Leccion", usuarioSchema)
-
-export default leccion;
+export default leccion

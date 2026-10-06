@@ -6,6 +6,8 @@ import helmet from 'helmet'
 import cors from 'cors'
 
 import authRoutes from '../src/auth/auth.routes.js'
+import moduloRoutes from '../src/modulo/modulo.routes.js'
+import leccionRoutes from '../src/leccion/leccion.routes.js'
 
 const configs = (app)=>{
     app.use(express.json())
@@ -13,10 +15,13 @@ const configs = (app)=>{
     app.use(cors())
     app.use(helmet())
     app.use(morgan('dev'))
+    
 }
 
 const routes = (app)=>{
     app.use('/v1/auth', authRoutes)
+    app.use('/v1/modulos', moduloRoutes)
+    app.use('/v1/lecciones', leccionRoutes)
 }
 
 export const initServer = () => {
