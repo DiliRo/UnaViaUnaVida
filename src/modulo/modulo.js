@@ -18,9 +18,9 @@ const moduloSchema = new mongoose.Schema(
                 ref: "Leccion"
             }
         ],
-        puedeAcceder:{
-            type: Boolean,
-            default: false,
+        nivel:{
+            type: Number,
+            default: 0,
             required: [true, 'Este campo es requerida'],
         }
     }
@@ -54,12 +54,12 @@ moduloSchema.methods.setLeccion = function(idLeccion){
     this.lecciones.push(idLeccion);
 }
 
-moduloSchema.methods.getPuedeAcceder = function(){
-    return this.puedeAcceder;
+moduloSchema.methods.getNivel = function(){
+    return this.nivel;
 }
 
-moduloSchema.methods.setPuedeAcceder = function (puedeAcceder) {
-    this.puedeAcceder = puedeAcceder
+moduloSchema.methods.setNivel= function (nivel) {
+    this.nivel = nivel
 }
 
 const modulo = mongoose.model("Modulo", moduloSchema)
