@@ -2,11 +2,12 @@ import Modulo from './modulo.js'
 
 export const crearModulo = async (req, res) => {
     try {
-        const { nombre, descripcion } = req.body
+        const { nombre, descripcion, nivel } = req.body
 
         const modulo = new Modulo({
             nombre,
-            descripcion
+            descripcion,
+            nivel
         })
 
         await modulo.save()

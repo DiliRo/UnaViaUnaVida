@@ -133,6 +133,7 @@ export const login = async (req, res) => {
             uid: usuario._id,
             nombre: usuario.nombre,
             nombreUsuario: usuario.nombreUsuario,
+            rol: usuario.rol,
             nivel: usuario.nivel
         }
 
