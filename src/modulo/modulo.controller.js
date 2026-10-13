@@ -29,7 +29,7 @@ export const crearModulo = async (req, res) => {
 
 export const listarModulos = async (req, res) => {
     try {
-        const modulos = await Modulo.find()
+        const modulos = await Modulo.find().populate('lecciones')
 
         return res.send({
             success: true,
@@ -50,7 +50,7 @@ export const obtenerModulo = async (req, res) => {
     try {
         const { id } = req.params
 
-        const modulo = await Modulo.findById(id)
+        const modulo = await Modulo.findById(id).populate('lecciones')
 
         if (!modulo) {
             return res.status(404).send({
