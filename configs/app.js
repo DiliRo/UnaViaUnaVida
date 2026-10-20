@@ -9,6 +9,8 @@ import authRoutes from '../src/auth/auth.routes.js'
 import moduloRoutes from '../src/modulo/modulo.routes.js'
 import leccionRoutes from '../src/leccion/leccion.routes.js'
 import preguntaRoutes from '../src/pregunta/pregunta.routes.js'
+import usuarioRoutes from '../src/usuario/usuario.routes.js'
+import rankingRoutes from '../src/ranking/ranking.routes.js'
 
 const configs = (app)=>{
     app.use(express.json())
@@ -24,6 +26,8 @@ const routes = (app)=>{
     app.use('/v1/modulos', moduloRoutes)
     app.use('/v1/lecciones', leccionRoutes)
     app.use('/v1/preguntas', preguntaRoutes)
+    app.use('/v1/usuarios', usuarioRoutes)
+    app.use('/v1/ranking', rankingRoutes)
 }
 
 export const initServer = () => {
