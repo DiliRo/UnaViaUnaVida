@@ -7,7 +7,8 @@ export const crearLeccion = async (req, res) => {
             idModulo,
             titulo,
             descripcion,
-            intentosMaximos
+            intentosMaximos,
+            numeroLeccion
         } = req.body
 
         const modulo = await Modulo.findById(idModulo)
@@ -22,7 +23,8 @@ export const crearLeccion = async (req, res) => {
         const leccion = new Leccion({
             titulo,
             descripcion,
-            intentosMaximos
+            intentosMaximos,
+            numeroLeccion
         })
 
         await leccion.save()

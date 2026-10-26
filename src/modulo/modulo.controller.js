@@ -73,3 +73,23 @@ export const obtenerModulo = async (req, res) => {
         })
     }
 }
+
+export const listarModulo = async (req, res) => {
+    try {
+        const { nivel } = req.params
+        const modulos = await Modulo.findOne({nivel:nivel}).populate('lecciones')
+
+        return res.send({
+            success: true,
+            message: 'Módulos obtenidos correctamente',
+            modulos
+        })
+    } catch (err) {
+        console.error(err)
+
+        return res.status(500).send({
+            success: false,
+            message: 'Error al obtener los módulos'
+        })
+    }
+}

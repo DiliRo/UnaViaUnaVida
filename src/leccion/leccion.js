@@ -31,7 +31,12 @@ const leccionSchema = new mongoose.Schema(
                 validator: Number.isInteger,
                 message: 'Los intentos máximos deben ser un número entero'
             }
-        }       
+        },
+        numeroLeccion:{
+            type: Number,
+            default: 1,
+            required: [true, 'Este campo es requerida'],
+        }    
     }
 )
 
@@ -79,6 +84,14 @@ leccionSchema.methods.getIntentosMaximos = function () {
     return this.intentosMaximos
 }
 
+
+leccionSchema.methods.getnumeroLeccion = function () {
+    return this.numeroLeccion
+}
+
+leccionSchema.methods.setNumeroLeccion = function (numeroLeccion) {
+    this.numeroLeccion = numeroLeccion
+}
 const leccion = mongoose.model('Leccion', leccionSchema)
 
 export default leccion

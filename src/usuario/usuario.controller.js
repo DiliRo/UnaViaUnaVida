@@ -6,6 +6,7 @@ const datosPublicos = (usuario) => ({
     uid: usuario._id,
     nombreUsuario: usuario.nombreUsuario,
     nivel: usuario.nivel,
+    numeroLeccion: usuario.numeroLeccion,
     puntos: usuario.puntos,
     racha: usuario.racha
 })
