@@ -51,11 +51,17 @@ preguntaSchema.methods.setRetroalimentacion = function(retroalimentacion){
     this.retroalimentacion = retroalimentacion;
 }
 
-preguntaSchema.methods.VerificarRespuesta = function(idOpcion){
-    return this.opciones.id(idOpcion).esCorrecta;
+preguntaSchema.methods.VerificarRespuesta = function (idOpcion) {
+    const opcion = this.opciones.id(idOpcion)
+
+    if (!opcion) {
+        throw new Error('La opción no pertenece a esta pregunta')
+    }
+
+    return opcion.esCorrecta
 }
 
 
-const pregunta = mongoose.pregunta("Pregunta", preguntaSchema)
+const pregunta = mongoose.model('Pregunta', preguntaSchema)
 
 export default pregunta

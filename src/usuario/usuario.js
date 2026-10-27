@@ -10,9 +10,7 @@ const usuarioSchema = new mongoose.Schema(
                 25,
                 'El nombre no puede sobrepasar los 25 caracteres'
             ],
-            trim: true
         },
-
         nombreUsuario: {
             type: String,
             required: [true, 'El nombre de usuario es requerido'],
@@ -21,7 +19,6 @@ const usuarioSchema = new mongoose.Schema(
                 'El nombre de usuario no puede sobrepasar los 25 caracteres'
             ],
             unique: true,
-            trim: true
         },
 
         contrasena: {
@@ -36,7 +33,15 @@ const usuarioSchema = new mongoose.Schema(
                 'La contraseña no puede tener menos de 8 caracteres'
             ]
         },
-
+        email:{
+            type: String,
+            required: [true, 'El correo es requerida'],
+            maxLength: [
+                75,
+                'El correo no puede sobrepasar los 75 caracteres'
+            ],
+            unique: true,
+        },
         rol: {
             type: String,
             enum: {
@@ -51,6 +56,12 @@ const usuarioSchema = new mongoose.Schema(
             type: Number,
             default: 1,
             min: [1, 'El nivel no puede ser menor que 1']
+        },
+
+        numeroLeccion: {
+            type: Number,
+            default: 1,
+            min: [1, 'La leccion no puede ser menor que 1']
         },
 
         racha: {
@@ -94,6 +105,14 @@ usuarioSchema.methods.setNombreUsuario = function (nombreUsuario) {
     this.nombreUsuario = nombreUsuario
 }
 
+usuarioSchema.methods.getEmail = function(){
+    return this.email
+}
+
+usuarioSchema.methods.setEmail = function(email){
+    this.email = email
+}
+
 usuarioSchema.methods.getRol = function () {
     return this.rol
 }
@@ -108,6 +127,14 @@ usuarioSchema.methods.getNivel = function () {
 
 usuarioSchema.methods.setNivel = function (nivel) {
     this.nivel = nivel
+}
+
+usuarioSchema.methods.getNumeroLeccion = function () {
+    return this.numeroLeccion
+}
+
+usuarioSchema.methods.setNumeroLeccion = function (numeroLeccion) {
+    this.numeroLeccion = numeroLeccion
 }
 
 usuarioSchema.methods.getRacha = function () {

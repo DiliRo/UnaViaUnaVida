@@ -7,10 +7,10 @@ const moduloSchema = new mongoose.Schema(
             required: [true, 'El nombre es requerido'],
             maxLength:[50, 'El nombre no puede sobrepasar de 50 caracteres']
         },
-        decripcion:{
+        descripcion: {
             type: String,
-            required: [true, 'La descripción es requerido'],
-            maxLength:[150, 'La descripción no puede sobrepasar de 150 caracteres']
+            required: [true, 'La descripción es requerida'],
+            maxLength: [150, 'La descripción no puede sobrepasar los 150 caracteres']
         },
         lecciones:[
             {
@@ -18,9 +18,9 @@ const moduloSchema = new mongoose.Schema(
                 ref: "Leccion"
             }
         ],
-        puedeAcceder:{
-            type: Boolean,
-            default: false,
+        nivel:{
+            type: Number,
+            default: 0,
             required: [true, 'Este campo es requerida'],
         }
     }
@@ -38,12 +38,12 @@ moduloSchema.methods.setNombre = function(nombre){
     this.nombre = nombre;
 }
 
-moduloSchema.methods.getDescripcion = function(){
-    return this.decripcion;
+moduloSchema.methods.getDescripcion = function () {
+    return this.descripcion
 }
 
-moduloSchema.methods.setDescripcion = function(descripción){
-    this.decripcion = descripción
+moduloSchema.methods.setDescripcion = function (descripcion) {
+    this.descripcion = descripcion
 }
 
 moduloSchema.methods.getLecciones = function(){
@@ -54,12 +54,12 @@ moduloSchema.methods.setLeccion = function(idLeccion){
     this.lecciones.push(idLeccion);
 }
 
-moduloSchema.methods.getPuedeAcceder = function(){
-    return this.puedeAcceder;
+moduloSchema.methods.getNivel = function(){
+    return this.nivel;
 }
 
-moduloSchema.methods.setPuedeAcceder = function(){
-    !this.puedeAcceder;
+moduloSchema.methods.setNivel= function (nivel) {
+    this.nivel = nivel
 }
 
 const modulo = mongoose.model("Modulo", moduloSchema)
