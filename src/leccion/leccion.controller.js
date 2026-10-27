@@ -7,7 +7,8 @@ export const crearLeccion = async (req, res) => {
             idModulo,
             titulo,
             descripcion,
-            intentosMaximos
+            intentosMaximos,
+            numeroLeccion
         } = req.body
 
         const modulo = await Modulo.findById(idModulo)
@@ -22,7 +23,8 @@ export const crearLeccion = async (req, res) => {
         const leccion = new Leccion({
             titulo,
             descripcion,
-            intentosMaximos
+            intentosMaximos,
+            numeroLeccion
         })
 
         await leccion.save()
@@ -169,6 +171,34 @@ export const eliminarLeccion = async (req, res) => {
         return res.status(500).send({
             success: false,
             message: 'Error al eliminar la lección'
+        })
+    }
+}
+
+export const obtenerLeccionNivel = async (req, res) => {
+    try {
+        const { nivelLeccion } = req.params
+
+        const leccion = await Leccion.findOne({nivelLeccion:nivelLeccion})
+
+        if (!leccion) {
+            return res.status(404).send({
+                success: false,
+                message: 'Lección no encontrada'
+            })
+        }
+
+        return res.send({
+            success: true,
+            message: 'Lección obtenida correctamente',
+            leccion
+        })
+    } catch (err) {
+        console.error(err)
+
+        return res.status(500).send({
+            success: false,
+            message: 'Error al obtener la lección'
         })
     }
 }

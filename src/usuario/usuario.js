@@ -58,6 +58,12 @@ const usuarioSchema = new mongoose.Schema(
             min: [1, 'El nivel no puede ser menor que 1']
         },
 
+        numeroLeccion: {
+            type: Number,
+            default: 1,
+            min: [1, 'La leccion no puede ser menor que 1']
+        },
+
         racha: {
             type: Number,
             default: 0,
@@ -121,6 +127,14 @@ usuarioSchema.methods.getNivel = function () {
 
 usuarioSchema.methods.setNivel = function (nivel) {
     this.nivel = nivel
+}
+
+usuarioSchema.methods.getNumeroLeccion = function () {
+    return this.numeroLeccion
+}
+
+usuarioSchema.methods.setNumeroLeccion = function (numeroLeccion) {
+    this.numeroLeccion = numeroLeccion
 }
 
 usuarioSchema.methods.getRacha = function () {

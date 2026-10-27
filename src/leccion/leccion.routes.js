@@ -4,7 +4,8 @@ import {
     listarLecciones,
     obtenerLeccion,
     actualizarLeccion,
-    eliminarLeccion
+    eliminarLeccion,
+    obtenerLeccionNivel
 } from './leccion.controller.js'
 import {
     validateJwt,
@@ -16,6 +17,7 @@ const api = Router()
 api.post('/', [validateJwt, isAdmin], crearLeccion)
 
 api.get('/', validateJwt, listarLecciones)
+api.get('/nivel/:nivel', validateJwt, obtenerLeccionNivel)
 api.get('/:id', validateJwt, obtenerLeccion)
 
 api.patch('/:id', [validateJwt, isAdmin], actualizarLeccion)
