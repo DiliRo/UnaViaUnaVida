@@ -177,9 +177,11 @@ export const eliminarLeccion = async (req, res) => {
 
 export const obtenerLeccionNivel = async (req, res) => {
     try {
-        const { nivelLeccion } = req.params
-
-        const leccion = await Leccion.findOne({nivelLeccion:nivelLeccion})
+        const{ idModulo } = req.params
+        const { numeroLeccion } = req.params
+        
+        const modulo = await Modulo.findById(idModulo).populate( {path: 'lecciones', match:{numeroLeccion: Number(numeroLeccion)}})
+        const leccion = modulo.lecciones
 
         if (!leccion) {
             return res.status(404).send({
