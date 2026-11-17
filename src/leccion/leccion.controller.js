@@ -180,7 +180,7 @@ export const obtenerLeccionNivel = async (req, res) => {
         const{ idModulo } = req.params
         const { numeroLeccion } = req.params
         
-        const modulo = await Modulo.findById(idModulo).populate( {path: 'lecciones', match:{numeroLeccion: Number(numeroLeccion)}})
+        const modulo = await Modulo.findById(idModulo).populate({ path: 'lecciones', match: { numeroLeccion: Number(numeroLeccion) }, populate: { path: 'preguntas' } })
         const leccion = modulo.lecciones
 
         if (!leccion) {
